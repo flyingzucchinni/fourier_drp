@@ -1,0 +1,89 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[all]{xy}
+\usepackage{MnSymbol,wasysym}
+\usepackage{enumitem}
+\usepackage{enumerate}
+\usepackage{amsmath,amsthm,amssymb,color,latexsym}
+\usepackage{geometry}    
+\usepackage{fancyvrb}
+\usepackage{listings}
+%----------------- shortcuts -----------------%
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\ep}{\epsilon}
+\newcommand{\epo}{\ep > 0}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\newenvironment{theorem}[2][Theorem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{lemma}[2][Lemma]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{exercise}[2][Exercise]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{reflection}[2][Reflection]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{proposition}[2][Proposition]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{corollary}[2][Corollary]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{remark}[2][Remark]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{example}[2][Example]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+    
+\geometry{letterpaper}    
+\usepackage{graphicx}
+
+\newtheorem{problem}{Problem}
+
+\newenvironment{solution}[1][\it{Solution}]{\textbf{#1. } }{$\smiley{}$}
+\renewenvironment{proof}[1][\it{Proof}]{\textbf{#1. } }{$\smiley{}$}
+
+    
+\geometry{letterpaper}    
+\usepackage{graphicx}
+
+% DOCUMENT BEGINS HERE ---------------------------------:)
+\begin{document}
+%TITLE --------------------------------------
+\noindent Fourier Analysis DRP Spring 2026\hfill Week \#2\\Rosie Y. (02/14)
+%ACTUAL THING --------------------------------------
+\hrulefill
+\begin{example}{1}
+    The $N^{th}$ Dirichlet kernel is the trigonometric polynomial defined for $x \in [-\pi,\pi]$ by 
+    \[D_N(x)=\sum_{n=-N}^{N}e^{inx}\]
+    A simple sum splitting yields
+    \begin{align*}
+        D_N(x)&=\sum_{n=-N}^{N}e^{inx}\\
+        &=\sum_{n=0}^{N}e^{inx}+\sum_{n=-N}^{-1}e^{inx}
+    \end{align*}
+    Setting $\omega=e^{ix}$, we can write both of these as finite geometric series
+    \[\sum_{n=0}^{N}e^{inx}=1+\omega+\dots+\omega^{N}=\left(\frac{1-\omega^{N+1}}{1-\omega}\right)\]
+    \[\sum_{n=-N}^{-1}e^{inx}=\omega^{-1}+\dots+\omega^{-N}=\left(\frac{1}{w}\right)\left(\frac{1-\omega^{-N}}{1-\omega^{-1}}\right)=\left(\frac{1-\omega^{-N}}{\omega-1}\right)=\left(\frac{\omega^{-N}-1}{1-\omega}\right)\]
+    Their sum is then
+    \begin{align*}
+        \sum_{n=-N}^{N}e^{inx}&=\left(\frac{1-\omega^{N+1}}{1-\omega}\right)+\left(\frac{\omega^{-N}-1}{1-\omega}\right)\\
+        &=\left(\frac{1-\omega^{N+1}+\omega^{-N}-1}{1-\omega}\right)\\
+        &=\left(\frac{\omega^{-N}-\omega^{N+1}}{1-\omega}\right)\\
+        &=\left(\frac{\omega^{-1/2}}{\omega^{-1/2}}\right)\left(\frac{\omega^{-N}-\omega^{N+1}}{1-\omega}\right)\\
+        &=\left(\frac{\omega^{-(N+1/2)}-\omega^{N+1/2}}{\omega^{-1/2}-\omega^{1/2}}\right)
+    \end{align*}
+    Using Euler's identities, we have
+    \[\omega^{-(N+1/2)}=e^{-(N+1/2)xi}=\cos(-(N+1/2)x)+i\sin(-(N+1/2)xi)\]
+    \[\omega^{N+1/2}=e^{(N+1/2)xi}=\cos((N+1/2)x)+i\sin((N+1/2)xi)\]
+    \[\omega^{-(N+1/2)}-\omega^{N+1/2}=-2i\sin((N+1/2)xi)\]
+    Similarly
+    \[\omega^{-1/2}=e^{-(1/2)xi}=\cos(-(1/2)x)+i\sin(-(1/2)x)\]
+    \[\omega^{1/2}=e^{(1/2)xi}=\cos((1/2)x)+i\sin((1/2)x)\]
+    \[\omega^{-1/2}-\omega^{1/2}=-2i\sin((1/2)x)\]
+    Hence
+    \[\left(\frac{\omega^{-(N+1/2)}-\omega^{N+1/2}}{\omega^{-1/2}-\omega^{1/2}}\right)=\left(\frac{-2i\sin((N+1/2)xi)}{-2i\sin((1/2)x)}\right)=\frac{\sin((N+1/2)x)}{\sin(x/2)}\]
+    This says that the Dirichlet kernel has the following closed form formula
+    \[D_N(x)=\frac{\sin((N+1/2)x)}{\sin(x/2)}\]
+    We shall now present a different argument that's a bit more motivating. Notice that given $f \in C_{per}(\R)$, its $N^{th}$ Fourier partial sum is given by
+    \[\Pi_Nf=\frac{a_0}{2}+\langle \rangle\]
+\end{example}
+\end{document}
