@@ -83,7 +83,116 @@
     \[\left(\frac{\omega^{-(N+1/2)}-\omega^{N+1/2}}{\omega^{-1/2}-\omega^{1/2}}\right)=\left(\frac{-2i\sin((N+1/2)xi)}{-2i\sin((1/2)x)}\right)=\frac{\sin((N+1/2)x)}{\sin(x/2)}\]
     This says that the Dirichlet kernel has the following closed form formula
     \[D_N(x)=\frac{\sin((N+1/2)x)}{\sin(x/2)}\]
-    We shall now present a different argument that's a bit more motivating. Notice that given $f \in C_{per}(\R)$, its $N^{th}$ Fourier partial sum is given by
-    \[\Pi_Nf=\frac{a_0}{2}+\langle \rangle\]
+    Note that this kernel has the property that $a_n=1$ if $|n|\leq N$ and $a_n=0$ otherwise.
 \end{example}
+\begin{example}{2}
+    Now we move on to discuss the Poisson kernel defined by the following
+    \[P_r(\theta)=\sum_{n=-\infty}^{\infty}r^{|n|}e^{in\theta}\]
+    where $0\leq r<1$. It is easy to see that this converges uniformly and absolutely for all $\theta \in [-\pi,\pi]$, as
+    \[\sum_{n=-\infty}^{\infty}|r^{|n|}e^{in\theta}|\leq \sum_{n=-\infty}^{\infty}|r^{|n|}|<+\infty\]
+    and uniform convergence follows from the Weierstrass M test. The Fourier coefficients are then given by
+    \begin{align*}
+        a_n&=\frac{1}{2\pi}\int_{-\pi}^{\pi}r^{|n|}e^{in\theta}e^{-in\theta}d\theta \\
+        &=\frac{2\pi}{2\pi}r^{|n|}\\&=r^{|n|}
+    \end{align*}
+    And its Fourier series is given by
+    \[\sum_{-\infty}^{\infty}r^{|n|}e^{ in\theta}\]
+    Similar to what we did with the Dirichlet kernel, we have
+    \[\sum_{-\infty}^{\infty}r^{|n|}e^{ in\theta}=\sum_{n=0}^{\infty}r^{|n|}e^{ in\theta}+\sum_{-\infty}^{-1}r^{|n|}e^{ in\theta}\]
+    Letting $\omega=e^{ in\theta}$, we have
+    \[\sum_{n=0}^{\infty}r^{|n|}e^{ in\theta}=1+r\omega+r^2\omega^2+\dots\]
+    Using the formula for the sum of an infinite geometric series, we have
+    \[\sum_{n=0}^{\infty}r^{|n|}e^{ in\theta}=\frac{1}{1-r\omega}\]
+    Similarly
+    \[\sum_{-\infty}^{-1}r^{|n|}e^{ in\theta}=r\omega^{-1}+r^2\omega^{-2}+\dots\]
+    \[\sum_{-\infty}^{-1}r^{|n|}e^{ in\theta}=\frac{r\omega^{-1}}{1-r\omega^{-1}}\]
+    Combining these yields
+    \[\sum_{-\infty}^{\infty}r^{|n|}e^{ in\theta}=\frac{1}{1-r\omega}+\frac{r\omega^{-1}}{1-r\omega^{-1}}=\frac{1-r\omega^{-1}+r\omega^{-1}-r^2}{1-r\omega^{-1}-r\omega+r^2}\]
+    Again, by Euler's identities, we see that
+    \[r\omega^{-1}+r\omega=r\cos(\theta)-ir\sin(\theta)+r\cos(\theta)+ir\sin(\theta)=2r\cos(\theta)\]
+    So
+    \[\sum_{-\infty}^{\infty}r^{|n|}e^{ in\theta}=\frac{1-r^2}{1-r\omega^{-1}-r\omega+r^2}=\frac{1-r^2}{1-2r\cos\theta+r^2}\]
+\end{example}
+Now we shall return to the question of convergence, letting $S_N(f)$ denote the partial sums of the Fourier series of $f$, where $f$ is defined on $[-\pi,\pi]$ and Riemann integrable, we want to know if
+\[\lim_{N\rightarrow \infty}S_N(f)(\theta)=f(\theta)\]
+for every $\theta$. In other words, we want to know if $S_N$ converges to $f$ pointwise. Note that this may be thought of as a "weaker" type of convergence when compared with uniform convergence. It is easy to see that this is not true in general if we recall the following result:
+\begin{proposition}{2.1}
+    Let $f,\tilde{f}$ be real valued functions defined on $[a,b]$ such that $f$ is Riemann integrable. If the set of points at which $\tilde{f}$ differs from $f$ is at most countable, then $\tilde{f}$ is also Riemann integrable with
+    \[\int_{a}^bf=\int_{a}^b\tilde{f}\]
+\end{proposition}
+\begin{remark}{2.1}
+    Note that the above result comes from the fact that countable and finite sets have measure zero, i.e. the same argument applies for certain uncountable sets (e.g. the Cantor set).
+\end{remark}
+This implies that $f$ and $\tilde{f}$ can differ at countably many points but still have the same Fourier coefficients. Motivated by this, we might ask the same question assuming that $f$ is continuous and periodic (however the answer would still be "no"). Though we will later see that the Fourier series of $f$ \textbf{does} converges to $f$ uniformly given that $f$ is continuously differentiable. \\
+A natural question to ask at this point is whether a function is uniquely defined by its Fourier coefficients. Of course this wouldn't be true unless we put some restrictions on $f$. However the following result is true:
+\begin{theorem}{3}
+    Suppose that $f$ is an integrable function on the circle with $\hat{f}(n)=0$ for all $n \in \Z$. Then $f(\theta_0)=0$ whenever $f$ is continuous at $\theta_0$.
+\end{theorem}
+
+\begin{proof}
+We shall now outline a proof, due to Lebesgue, of the theorem stated above. Suppose $f$ is real valued, assume, for the sake of contradiction, that $\hat{f}(n)=0$ for all $n \in \Z$, but there exists $\theta_0$ such that $f$ is continuous at $\theta_0$ but $f(\theta_0)\neq0$. Without loss of generality, take $\theta_0=0$ and $f(0)>0$. By continuity, there exists $\delta>0$ such that $$f(\theta)>f(0)/2$$ whenever $\theta\in (-\delta,\delta)$. Then, choose $\epo$ such that
+\[|\ep+\cos\theta|<1-\ep/2\] whenever 
+\[\delta \leq|\theta|\leq \pi\] set 
+\[p(\theta)=\ep+\cos\theta\]
+We know that there exists $\eta>0$ such that
+\[p(\theta)=\ep+\cos\theta>\ep/2+1\]
+for 
+\[|\theta|<\eta\]
+since $p(\theta)$ is continuous and has value $\ep+1$ at $\theta =0$. Now we set
+\[p_k(\theta)=(\ep+\cos\theta)^k\]
+By construction, we see that each $p_k$ is a trig polynomial (in terms of cosine). Since $\hat{f}(n)=0$ for all $n$ by assumption, we have that
+\[\int_{-\pi}^\pi f(\theta)p_k(\theta)d\theta=0\]
+for all $k$. This is because every $p_k(\theta)$ can be written as a linear combination of the harmonics, and the rest follows from the fact that integration is a linear operator. However, we can bound the following
+\begin{align*}
+    \left|\int_{\delta\leq|\theta|}f(\theta)p_k(\theta)d\theta\right|\leq \int_{\delta\leq|\theta|}\left|f(\theta)p_k(\theta)\right|d\theta\leq B\int_{\delta\leq|\theta|}\left|p_k(\theta)\right|d\theta\leq2\pi B(1-\ep/2)^k
+\end{align*}
+where $B$ is chosen such that $|f(\theta)|<B$ for all $\theta \in [-\pi,\pi]$, and $2\pi$ is an upper bound on the length of the interval $[-\pi,\pi]$ with $(-\delta,\delta)$ removed. Moreover, observe that
+\[\int_{\eta\leq |\theta|<\delta}f(\theta)p_k(\theta) d\theta\geq0\]
+And finally
+\begin{align*}
+    \int_{|\theta|\leq \eta}f(\theta)p_k(\theta)d\theta\geq\int_{|\theta|\leq \eta}\frac{f(0)}{2}(1+\ep/2)^kd\theta=2\eta\frac{f(0)}{2}(1+\ep/2)^k
+\end{align*}
+It is easy to see that these integrals combine to give
+\begin{align*}
+    \int_{-\pi}^\pi f(\theta)p_k(\theta)d\theta&=\int_{|\theta|\leq \eta}f(\theta)p_k(\theta)d\theta+\int_{\eta\leq |\theta|<\delta}f(\theta)p_k(\theta) d\theta+\int_{\delta\leq|\theta|}f(\theta)p_k(\theta)d\theta\\
+    &=\int_{|\theta|\leq \eta}f(\theta)p_k(\theta)d\theta+\int_{\delta\leq|\theta|}f(\theta)p_k(\theta)d\theta\\
+    &\geq 2\eta \frac{f(0)}{2}(1+\ep/2)^k-2\pi B(1-\ep/2)^k
+\end{align*}
+Observe that 
+\[\lim_{k\rightarrow +\infty}2\eta \frac{f(0)}{2}(1+\ep/2)^k-2\pi B(1-\ep/2)^k=+\infty\]
+So
+\[\int p_k(\theta)f(\theta)d\theta \rightarrow\infty\]
+contradicting the fact that $\int p_k(\theta)f(\theta)d\theta=0$ for all $k$. If $f$ is real valued, the proof is complete. Suppose $f$ is complex valued, we can always write
+\[f(\theta)=u(\theta)+iv(\theta)\]
+where $u(\theta)$ and $v(\theta)$ are real valued, and the result follows.
+\end{proof}
+We now state an important result as a corollary to this theorem:
+\begin{corollary}{4}
+    Suppose that $f$ is a continuous function on the circle and that the Fourier coefficients of $f$ is absolutely convergent, that is
+    \[\sum_{-\infty}^{\infty}|\hat{f}(n)|<\infty\]
+    Then the Fourier series converges uniformly to $f$
+    \[\lim_{N\rightarrow \infty}\norm{f-S_N(f)}_{\infty}=0\]
+\end{corollary}
+It should be noted that this says the Fourier series not only converges uniformly to some limit, but it converges to the function $f$ itself. Before proceeding with the proof we shall recall two important lemmas:
+\begin{lemma}{5}
+    Let $(f_n)$ be a sequence of functions, and suppose there exists $f$ such that 
+    \[\lim_{n\rightarrow \infty}\norm{f-f_n}_{\infty}=0\]
+    then $(f_n)$ is said to converge uniformly to $f$. Moreover, if $f_n$ is continuous for each $n$, then $f$ must also be continuous.
+\end{lemma}
+\begin{lemma}{6}{(Weierstrass M-Test)}
+    Let $(f_n)$ be a sequence of functions, and suppose there exists a sequence $(M_n)$ such that
+    \[|f_n|<M_n\]
+    for all $n$, and $\sum M_n$ converges, then $f_n$ converges uniformly.
+\end{lemma}
+\begin{proof}
+    By our assumption
+    \[\sum_{-\infty}^{\infty}|\hat{f}(n)|<\infty\]
+    so the Fourier series of $f$ converges uniformly to some limit $g(\theta)$, where
+    \[g(\theta)=\sum_{-\infty}^\infty\hat{f}(n)e^{in\theta}\]
+    is continuous on the circle. Using our previous theorem, we see that $g-f$ has Fourier coefficients that vanish everywhere. Therefore, by continuity, we may conclude that $g=f$ on the circle, which is what we wanted to show.
+\end{proof}
+Before introducing yet another important corollary, recall that
+\[\hat{f}(n)=O(1/n^2)\]
+as $|n|\rightarrow \infty$ means that there exists $C>0$ with
+\[|\hat{f}(n)\leq C/||\]
 \end{document}
